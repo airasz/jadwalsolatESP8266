@@ -617,6 +617,7 @@ void flashy(){                    //flashy code here
       //  Serial.println("off yelow");
         }
       }
+
       if(t>0&&t<6){
         bip+=1;
         if(bip>40){
@@ -628,7 +629,7 @@ void flashy(){                    //flashy code here
           // noTone(BUZZER_PIN, BUZZER_CHANNEL);
           bip=0;
         }
-        interval2=(80*t);
+        interval2=(100*t);
         if(flr==1){
               digitalWrite(pred, HIGH);
               digitalWrite(pyel, LOW);
