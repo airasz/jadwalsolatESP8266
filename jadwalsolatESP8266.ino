@@ -445,9 +445,9 @@ void close_incoming_event(){                    //close_incoming_event code here
               	critical=1;
               	if(timeClient.getSeconds()<10&&t==2){
 
-				  String ready="5 menit sebelum dhuhur.\n";
-				   ready +="Silahkan anda bersiap!";
-				   // Serial.println(ready);
+                  String ready="5 menit sebelum dhuhur.\n";
+                  ready +="Silahkan anda bersiap!";
+              // Serial.println(ready);
 				  
               	}
               }else{critical=0;}    
@@ -469,9 +469,9 @@ void close_incoming_event(){                    //close_incoming_event code here
 
               	if(timeClient.getSeconds()<10&&t==2){
 
-				  String ready="5 menit sebelum dhuhur.\n";
-				   ready +="Silahkan anda bersiap!";
-				   // Serial.println(ready);
+                  String ready="5 menit sebelum dhuhur.\n";
+                  ready +="Silahkan anda bersiap!";
+                  // Serial.println(ready);
 				 
               	}
 
@@ -654,11 +654,11 @@ void flashy(){                    //flashy code here
     
   }
 }  
-void beep(){
+void beep(int duration){
 	if(beeping==true){
 	 	
 		long currentmillis=millis();
-		if(currentmillis>previousMillis +50){
+		if(currentmillis>previousMillis +(duration/2)){
 		  beepcount+=1;
       if(beepcount==1){    
         tone(buzz, NOTE_C8 );
