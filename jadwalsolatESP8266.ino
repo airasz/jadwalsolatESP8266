@@ -70,6 +70,7 @@ int authtry=0;
 
 bool beeping=false;
 int beepcount=0;
+int duration;
 long angka=0;
 long angka2=0;
 long angka3=0;
@@ -190,6 +191,7 @@ void setup() {
     delay(200);
     noTone(buzz);
   }else{beeping=1;
+  duration=100;
   }
 
   Serial.printf("jam = %d", timeClient.getYear());
@@ -622,6 +624,7 @@ void flashy(){                    //flashy code here
         bip+=1;
         if(bip>40){
           beeping=1;
+          duration=50;
           
           // tone(BUZZER_PIN, NOTE_B4, 20, BUZZER_CHANNEL);
           // noTone(BUZZER_PIN, BUZZER_CHANNEL);
@@ -655,7 +658,7 @@ void flashy(){                    //flashy code here
     
   }
 }  
-void beep(int duration){
+void beep(){
 	if(beeping==true){
 	 	
 		long currentmillis=millis();
@@ -667,7 +670,8 @@ void beep(int duration){
         tone(buzz, NOTE_D8 );
       }else if(beepcount>5){
         noTone(buzz);
-        beepcount=0; 
+        beepcount=0;
+        duration=100; 
         beeping=0;
       }
       // if(beepcount>4){
