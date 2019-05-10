@@ -187,67 +187,213 @@ void data_bulan(){
 
 		}
 
-		if (Bulan ==7) {
-			if (tgl<5 ) { sh = 442; dz = 1200; as =1521 ; mg = 1753 ; is = 1906 ;}
-			if (tgl>4 ){ sh = 443; dz = 1201; as =1522 ; mg = 1754 ; is = 1907 ;}
-			if (tgl>9){ sh = 444; dz = 1201; as =1523 ; mg = 1754 ; is = 1908 ;}
-			if (tgl>14) { sh = 444; dz = 1102; as =1523 ; mg = 1755 ; is = 1908 ;}
-			if (tgl>19){ sh = 444; dz = 1202; as =1524 ; mg = 1756 ; is = 1908 ;}
-			if (tgl>24) { sh = 444; dz = 1202; as =1524 ; mg = 1757 ; is = 1909 ;}
-			if (tgl>27){ sh = 444; dz = 1202; as =1524 ; mg = 1757 ; is = 1908 ;}
+		else if (Bulan ==7) {
+			if 		(tgl==01) {sh=442; dz=1158; as=1520; mg=1751; is=1906; }
+			else if (tgl==2) {sh=442; dz=1159; as=1520; mg=1751; is=1906; }
+			else if (tgl==3) {sh=443; dz=1159; as=1521; mg=1752; is=1906; }
+			else if (tgl==4) {sh=443; dz=1159; as=1521; mg=1752; is=1907; }
+			else if (tgl==5) {sh=443; dz=1159; as=1521; mg=1752; is=1907; }
+			else if (tgl==6) {sh=443; dz=1159; as=1521; mg=1752; is=1907; }
+			else if (tgl==7) {sh=443; dz=1200; as=1521; mg=1752; is=1907; }
+			else if (tgl==8) {sh=443; dz=1200; as=1522; mg=1753; is=1907; }
+			else if (tgl==9) {sh=444; dz=1200; as=1522; mg=1753; is=1907; }
+			else if (tgl==10) {sh=444; dz=1200; as=1522; mg=1753; is=1907; }
+			else if (tgl==11) {sh=444; dz=1200; as=1522; mg=1753; is=1908; }
+			else if (tgl==12) {sh=444; dz=1200; as=1522; mg=1753; is=1908; }
+			else if (tgl==13) {sh=444; dz=1200; as=1522; mg=1754; is=1908; }
+			else if (tgl==14) {sh=444; dz=1201; as=1523; mg=1754; is=1908; }
+			else if (tgl==15) {sh=445; dz=1201; as=1523; mg=1754; is=1908; }
+			else if (tgl==16) {sh=445; dz=1201; as=1523; mg=1754; is=1908; }
+			else if (tgl==17) {sh=445; dz=1201; as=1523; mg=1754; is=1908; }
+			else if (tgl==18) {sh=445; dz=1201; as=1523; mg=1755; is=1908; }
+			else if (tgl==19) {sh=445; dz=1201; as=1523; mg=1755; is=1908; }
+			else if (tgl==20) {sh=445; dz=1201; as=1523; mg=1755; is=1909; }
+			else if (tgl==21) {sh=445; dz=1201; as=1523; mg=1755; is=1909; }
+			else if (tgl==22) {sh=445; dz=1201; as=1523; mg=1755; is=1909; }
+			else if (tgl==23) {sh=445; dz=1201; as=1523; mg=1755; is=1909; }
+			else if (tgl==24) {sh=445; dz=1201; as=1523; mg=1755; is=1909; }
+			else if (tgl==25) {sh=445; dz=1201; as=1523; mg=1756; is=1909; }
+			else if (tgl==26) {sh=445; dz=1201; as=1523; mg=1756; is=1909; }
+			else if (tgl==27) {sh=445; dz=1201; as=1523; mg=1756; is=1909; }
+			else if (tgl==28) {sh=445; dz=1201; as=1523; mg=1756; is=1909; }
+			else if (tgl==29) {sh=445; dz=1201; as=1523; mg=1756; is=1909; }
+			else if (tgl==30) {sh=445; dz=1201; as=1523; mg=1756; is=1909; }
+			else if (tgl==31) {sh=445; dz=1201; as=1523; mg=1756; is=1909; }
+
+
 		}
 
-		if (Bulan ==8) {
-			if (tgl<5){ sh = 444; dz = 1202; as =1523 ; mg = 1753 ; is = 1906 ;}
-			if (tgl>4){ sh = 444; dz = 1202; as =1523 ; mg = 1754 ; is = 1907 ;}
-			if (tgl>9){ sh = 443; dz = 1201; as =1522 ; mg = 1754 ; is = 1908 ;}
-			if (tgl>13){ sh = 443; dz = 1201; as =1521 ; mg = 1757 ; is = 1908 ;}
-			if (tgl>19){ sh = 441; dz = 1200; as =1520 ; mg = 1757 ; is = 1908 ;}
-			if (tgl>24) { sh = 439; dz = 1159; as =1519 ; mg = 1756 ; is = 1907 ;}
-			if (tgl>27){ sh = 439; dz = 1156; as =1516 ; mg = 1755 ; is = 1905 ;}
+		else if (Bulan ==8) {
+			if		(tgl==1){ sh=445; dz=1201; as=1523	; mg=1756	; is=1909;}
+			else if(tgl==2){ sh=445; dz=1201	; as=1523	; mg=1756	; is=1909;}
+			else if(tgl==3){ sh=445; dz=1201	; as=1523	; mg=1756	; is=1909;}
+			else if(tgl==4){ sh=445; dz=1201	; as=1523	; mg=1756	; is=1909;}
+			else if(tgl==5){ sh=445; dz=1201	; as=1523	; mg=1756	; is=1908;}
+			else if(tgl==6){ sh=445; dz=1201	; as=1523	; mg=1756	; is=1908;}
+			else if(tgl==7){ sh=445; dz=1201	; as=1523	; mg=1756	; is=1908;}
+			else if(tgl==8){ sh=445; dz=1201	; as=1522	; mg=1757	; is=1908;}
+			else if(tgl==9){ sh=444; dz=1200	; as=1522	; mg=1757	; is=1908;}
+			else if(tgl==10){ sh=444; dz=1200	; as=1522	; mg=1757	; is=1908;}
+			else if(tgl==11){ sh=444; dz=1200	; as=1522	; mg=1756	; is=1908;}
+			else if(tgl==12){ sh=444; dz=1200	; as=1522	; mg=1756	; is=1908;}
+			else if(tgl==13){ sh=444; dz=1200	; as=1521	; mg=1756	; is=1908;}
+			else if(tgl==14){ sh=444; dz=1200	; as=1521	; mg=1756	; is=1908;}
+			else if(tgl==15){ sh=443; dz=1159	; as=1521	; mg=1756	; is=1907;}
+			else if(tgl==16){ sh=443; dz=1159	; as=1521	; mg=1756	; is=1907;}
+			else if(tgl==17){ sh=443; dz=1159	; as=1520	; mg=1756	; is=1907;}
+			else if(tgl==18){ sh=443; dz=1159	; as=1520	; mg=1756	; is=1907;}
+			else if(tgl==19){ sh=442; dz=1159	; as=1520	; mg=1756	; is=1907;}
+			else if(tgl==20){ sh=442; dz=1158	; as=1519	; mg=1756	; is=1907;}
+			else if(tgl==21){ sh=442; dz=1158	; as=1519	; mg=1756	; is=1906;}
+			else if(tgl==22){ sh=441; dz=1158	; as=1518	; mg=1756	; is=1906;}
+			else if(tgl==23){ sh=441; dz=1158	; as=1518	; mg=1756	; is=1906;}
+			else if(tgl==24){ sh=441; dz=1157	; as=1518	; mg=1756	; is=1906;}
+			else if(tgl==25){ sh=441; dz=1157	; as=1517	; mg=1756	; is=1906;}
+			else if(tgl==26){ sh=440; dz=1157	; as=1517	; mg=1755	; is=1906;}
+			else if(tgl==27){ sh=440; dz=1157	; as=1516	; mg=1755	; is=1905;}
+			else if(tgl==28){ sh=439; dz=1156	; as=1516	; mg=1755	; is=1905;}
+			else if(tgl==29){ sh=439; dz=1156	; as=1515	; mg=1755	; is=1905;}
+			else if(tgl==30){ sh=439; dz=1156	; as=1515	; mg=1755	; is=1905;}
+			else if(tgl==31){ sh=438; dz=1155	; as=1514	; mg=1755	; is=1905;}  
+
+
+
 		}
 
-		if (Bulan ==9) {
-			if (tgl<5) { sh = 436; dz = 1155; as =1514 ; mg = 1755 ; is = 1904 ;}
-			if (tgl>4){ sh = 435; dz = 1154; as =1511 ; mg = 1754 ; is = 1902 ;}
-			if (tgl>9){ sh = 432; dz = 1152; as =1509 ; mg = 1753 ; is = 1901 ;}
-			if (tgl>14){ sh = 430; dz = 1150; as =1504 ; mg = 1752 ; is = 1900 ;}
-			if (tgl>19){ sh = 427; dz = 1149; as =1500 ; mg = 1751 ; is = 1859 ;}
-			if (tgl>24) { sh = 425; dz = 1147; as =1456 ; mg = 1750 ; is = 1858 ;}
-			if (tgl>27) { sh = 422; dz = 1145; as =1503 ; mg = 1749 ; is = 1857 ;}
+		else if (Bulan ==9) {
+			if		(tgl==1){ sh=438; dz=1155; as=1514; mg=1755; is=1904; }
+			else if (tgl==2){ sh=438; dz=1155; as=1513; mg=1754; is=1904; }
+			else if (tgl==3){ sh=437; dz=1155; as=1513; mg=1754; is=1904; }
+			else if (tgl==4){ sh=437; dz=1154; as=1512; mg=1754; is=1904; }
+			else if (tgl==5){ sh=436; dz=1154; as=1512; mg=1754; is=1903; }
+			else if (tgl==6){ sh=436; dz=1154; as=1511; mg=1754; is=1903; }
+			else if (tgl==7){ sh=435; dz=1153; as=1510; mg=1754; is=1903; }
+			else if (tgl==8){ sh=435; dz=1153; as=1510; mg=1753; is=1903; }
+			else if (tgl==9){ sh=434; dz=1153; as=1509; mg=1753; is=1903; }
+			else if (tgl==10){ sh=434; dz=1152; as=1508; mg=1753; is=1902; }
+			else if (tgl==11){ sh=433; dz=1152; as=1508; mg=1753; is=1902; }
+			else if (tgl==12){ sh=433; dz=1151; as=1507; mg=1753; is=1902; }
+			else if (tgl==13){ sh=432; dz=1151; as=1506; mg=1753; is=1902; }
+			else if (tgl==14){ sh=432; dz=1151; as=1506; mg=1752; is=1902; }
+			else if (tgl==15){ sh=431; dz=1150; as=1505; mg=1752; is=1901; }
+			else if (tgl==16){ sh=431; dz=1150; as=1504; mg=1752; is=1901; }
+			else if (tgl==17){ sh=430; dz=1150; as=1503; mg=1752; is=1901; }
+			else if (tgl==18){ sh=430; dz=1149; as=1503; mg=1752; is=1901; }
+			else if (tgl==19){ sh=429; dz=1149; as=1502; mg=1751; is=1901; }
+			else if (tgl==20){ sh=429; dz=1149; as=1501; mg=1751; is=1900; }
+			else if (tgl==21){ sh=428; dz=1148; as=1500; mg=1751; is=1900; }
+			else if (tgl==22){ sh=428; dz=1148; as=1500; mg=1751; is=1900; }
+			else if (tgl==23){ sh=427; dz=1148; as=1559; mg=1751; is=1900; }
+			else if (tgl==24){ sh=427; dz=1147; as=1558; mg=1751; is=1900; }
+			else if (tgl==25){ sh=426; dz=1147; as=1557; mg=1750; is=1859; }
+			else if (tgl==26){ sh=426; dz=1146; as=1556; mg=1750; is=1859; }
+			else if (tgl==27){ sh=425; dz=1146; as=1555; mg=1750; is=1859; }
+			else if (tgl==28){ sh=425; dz=1146; as=1555; mg=1750; is=1859; }
+			else if (tgl==29){ sh=424; dz=1145; as=1554; mg=1750; is=1859; }
+			else if (tgl==30){ sh=424; dz=1145; as=1553; mg=1750; is=1859; }
+
+		}
+
+		else if (Bulan ==10) {
+			if 		(tgl==1) { sh=423; dz=1145; as=1452; mg=1749; is=1859; }
+			else if (tgl==2) { sh=422; dz=1144; as=1451; mg=1749; is=1859; }
+			else if (tgl==3) { sh=422; dz=1144; as=1450; mg=1749; is=1858; }
+			else if (tgl==4) { sh=421; dz=1144; as=1449; mg=1749; is=1858; }
+			else if (tgl==5) { sh=421; dz=1144; as=1448; mg=1749; is=1858; }
+			else if (tgl==6) { sh=420; dz=1143; as=1447; mg=1749; is=1858; }
+			else if (tgl==7) { sh=420; dz=1143; as=1446; mg=1749; is=1858; }
+			else if (tgl==8) { sh=419; dz=1143; as=1445; mg=1748; is=1858; }
+			else if (tgl==9) { sh=419; dz=1142; as=1444; mg=1748; is=1858; }
+			else if (tgl==10) { sh=418; dz=1142; as=1443; mg=1748; is=1858; }
+			else if (tgl==11) { sh=418; dz=1142; as=1444; mg=1748; is=1858; }
+			else if (tgl==12) { sh=417; dz=1142; as=1444; mg=1748; is=1858; }
+			else if (tgl==13) { sh=417; dz=1141; as=1445; mg=1748; is=1858; }
+			else if (tgl==14) { sh=416; dz=1141; as=1445; mg=1748; is=1858; }
+			else if (tgl==15) { sh=416; dz=1141; as=1446; mg=1748; is=1858; }
+			else if (tgl==16) { sh=415; dz=1141; as=1446; mg=1748; is=1858; }
+			else if (tgl==17) { sh=415; dz=1140; as=1447; mg=1748; is=1858; }
+			else if (tgl==18) { sh=414; dz=1140; as=1447; mg=1748; is=1858; }
+			else if (tgl==19) { sh=414; dz=1140; as=1448; mg=1748; is=1858; }
+			else if (tgl==20) { sh=413; dz=1140; as=1448; mg=1748; is=1858; }
+			else if (tgl==21) { sh=413; dz=1140; as=1449; mg=1748; is=1858; }
+			else if (tgl==22) { sh=412; dz=1139; as=1449; mg=1748; is=1858; }
+			else if (tgl==23) { sh=412; dz=1139; as=1450; mg=1748; is=1859; }
+			else if (tgl==24) { sh=411; dz=1139; as=1450; mg=1748; is=1859; }
+			else if (tgl==25) { sh=411; dz=1139; as=1451; mg=1748; is=1859; }
+			else if (tgl==26) { sh=411; dz=1139; as=1451; mg=1748; is=1859; }
+			else if (tgl==27) { sh=410; dz=1139; as=1452; mg=1748; is=1859; }
+			else if (tgl==28) { sh=410; dz=1139; as=1452; mg=1748; is=1859; }
+			else if (tgl==29) { sh=409; dz=1139; as=1453; mg=1748; is=1859; }
+
 		}
 
 
-		if (Bulan ==10) {
-			if (tgl<5){ sh = 421; dz = 1145; as =1451 ; mg = 1749 ; is = 1857 ;}
-			if (tgl>4){ sh = 419; dz = 1144; as =1447 ; mg = 1749 ; is = 1857 ;}
-			if (tgl>9){ sh = 419; dz = 1144; as =1445 ; mg = 1750 ; is = 1857 ;}
-			if (tgl>14) { sh = 414; dz = 1141; as =1446 ; mg = 1748 ; is = 1857 ;}
-			if (tgl>19){ sh = 412; dz = 1140; as =1449 ; mg = 1748 ; is = 1857 ;}
-			if (tgl>24) { sh = 412; dz = 1139; as =1451 ; mg = 1748 ; is = 1857 ;}
-			if (tgl>27){ sh = 411; dz = 1138; as =1453 ; mg = 1748 ; is = 1858 ;}
-			if (tgl>30){ sh = 409; dz = 1138; as =1454 ; mg = 1748 ; is = 1858 ;}
+		else if (Bulan ==11) {
+			if (tgl==1) { dz=408; dz=1138; as=1454; mg=1748; is=1900; }
+			else if (tgl==2) { dz=408; dz=1138; as=1454; mg=1748; is=1900; }
+			else if (tgl==3) { dz=408; dz=1138; as=1455; mg=1749; is=1901; }
+			else if (tgl==4) { dz=407; dz=1138; as=1455; mg=1749; is=1901; }
+			else if (tgl==5) { dz=407; dz=1138; as=1456; mg=1749; is=1901; }
+			else if (tgl==6) { dz=407; dz=1138; as=1456; mg=1749; is=1901; }
+			else if (tgl==7) { dz=407; dz=1138; as=1457; mg=1749; is=1902; }
+			else if (tgl==8) { dz=406; dz=1138; as=1457; mg=1749; is=1902; }
+			else if (tgl==9) { dz=406; dz=1138; as=1458; mg=1750; is=1902; }
+			else if (tgl==10) { dz=406; dz=1139; as=1458; mg=1750; is=1903; }
+			else if (tgl==11) { dz=406; dz=1139; as=1459; mg=1750; is=1903; }
+			else if (tgl==12) { dz=406; dz=1139; as=1459; mg=1750; is=1904; }
+			else if (tgl==13) { dz=405; dz=1139; as=1500; mg=1751; is=1904; }
+			else if (tgl==14) { dz=405; dz=1139; as=1500; mg=1751; is=1904; }
+			else if (tgl==15) { dz=405; dz=1139; as=1501; mg=1751; is=1905; }
+			else if (tgl==16) { dz=405; dz=1139; as=1501; mg=1752; is=1905; }
+			else if (tgl==17) { dz=405; dz=1139; as=1502; mg=1752; is=1906; }
+			else if (tgl==18) { dz=405; dz=1140; as=1502; mg=1752; is=1906; }
+			else if (tgl==19) { dz=405; dz=1140; as=1503; mg=1752; is=1907; }
+			else if (tgl==20) { dz=405; dz=1140; as=1503; mg=1753; is=1907; }
+			else if (tgl==21) { dz=405; dz=1140; as=1504; mg=1753; is=1907; }
+			else if (tgl==22) { dz=405; dz=1141; as=1504; mg=1754; is=1908; }
+			else if (tgl==23) { dz=405; dz=1141; as=1505; mg=1754; is=1908; }
+			else if (tgl==24) { dz=405; dz=1141; as=1505; mg=1754; is=1909; }
+			else if (tgl==25) { dz=405; dz=1141; as=1506; mg=1755; is=1909; }
+			else if (tgl==26) { dz=405; dz=1142; as=1506; mg=1755; is=1910; }
+			else if (tgl==27) { dz=405; dz=1142; as=1507; mg=1756; is=1910; }
+			else if (tgl==28) { dz=405; dz=1142; as=1507; mg=1756; is=1911; }
+			else if (tgl==29) { dz=405; dz=1143; as=1508; mg=1756; is=1912; }
+			else if (tgl==30) { dz=405; dz=1143; as=1508; mg=1757; is=1912; }
+
 		}
+		else if (Bulan ==12) {
+			if 		(tgl==11) { sh=405; dz=1143; as=1509; mg=1757; is=1913; } 
+			else if (tgl==12) { sh=405; dz=1144; as=1509; mg=1758; is=1913; } 
+			else if (tgl==13) { sh=406; dz=1144; as=1510; mg=1758; is=1914; } 
+			else if (tgl==14) { sh=406; dz=1144; as=1510; mg=1759; is=1914; } 
+			else if (tgl==15) { sh=406; dz=1145; as=1511; mg=1759; is=1915; } 
+			else if (tgl==16) { sh=406; dz=1145; as=1512; mg=1800; is=1915; } 
+			else if (tgl==17) { sh=407; dz=1146; as=1512; mg=1800; is=1916; } 
+			else if (tgl==18) { sh=407; dz=1146; as=1513; mg=1801; is=1917; } 
+			else if (tgl==19) { sh=407; dz=1147; as=1513; mg=1801; is=1917; } 
+			else if (tgl==10) { sh=407; dz=1147; as=1514; mg=1802; is=1918; } 
+			else if (tgl==11) { sh=408; dz=1147; as=1514; mg=1802; is=1918; } 
+			else if (tgl==12) { sh=408; dz=1148; as=1515; mg=1803; is=1919; } 
+			else if (tgl==13) { sh=408; dz=1148; as=1515; mg=1803; is=1919; } 
+			else if (tgl==14) { sh=409; dz=1149; as=1516; mg=1804; is=1920; } 
+			else if (tgl==15) { sh=409; dz=1149; as=1516; mg=1804; is=1920; } 
+			else if (tgl==16) { sh=410; dz=1150; as=1517; mg=1805; is=1921; } 
+			else if (tgl==17) { sh=410; dz=1150; as=1518; mg=1805; is=1921; } 
+			else if (tgl==18) { sh=410; dz=1151; as=1518; mg=1806; is=1922; } 
+			else if (tgl==19) { sh=411; dz=1151; as=1519; mg=1806; is=1923; } 
+			else if (tgl==20) { sh=411; dz=1152; as=1519; mg=1807; is=1923; } 
+			else if (tgl==21) { sh=412; dz=1152; as=1520; mg=1807; is=1924; } 
+			else if (tgl==22) { sh=412; dz=1153; as=1520; mg=1808; is=1924; } 
+			else if (tgl==23) { sh=413; dz=1153; as=1521; mg=1808; is=1925; } 
+			else if (tgl==24) { sh=413; dz=1154; as=1521; mg=1809; is=1925; } 
+			else if (tgl==25) { sh=414; dz=1154; as=1522; mg=1809; is=1926; } 
+			else if (tgl==26) { sh=414; dz=1155; as=1522; mg=1810; is=1926; } 
+			else if (tgl==27) { sh=415; dz=1155; as=1523; mg=1810; is=1926; } 
+			else if (tgl==28) { sh=415; dz=1156; as=1523; mg=1811; is=1927; } 
+			else if (tgl==29) { sh=416; dz=1156; as=1523; mg=1811; is=1927; } 
+			else if (tgl==30) { sh=416; dz=1157; as=1524; mg=1811; is=1928; } 
+			else if (tgl==31) { sh=417; dz=1157; as=1524; mg=1812; is=1928; } 
 
-
-		if (Bulan ==11) {
-			if (tgl<5) { sh = 408; dz = 1139; as =1454 ; mg = 1749 ; is = 1900 ;}
-			if (tgl>4) { sh = 407; dz = 1139; as =1456 ; mg = 1749 ; is = 1900 ;}
-			if (tgl>9){ sh = 406; dz = 1140; as =1458 ; mg = 1750 ; is = 1902 ;}
-			if (tgl>14){ sh = 405; dz = 1141; as =1501 ; mg = 1752 ; is = 1904 ;}
-			if (tgl>19){ sh = 405; dz = 1142; as =1504 ; mg = 1753 ; is = 1906 ;}
-			if (tgl>24){ sh = 405; dz = 1143; as =1505 ; mg = 1756 ; is = 1910 ;}
-			if (tgl>30){ sh = 406; dz = 1144; as =1509 ; mg = 1757 ; is = 1912 ;}
-		}
-
-		if (Bulan ==12) {
-			if (tgl<5){ sh = 406; dz = 1145; as =1510 ; mg = 1759 ; is = 1813 ;}
-			if (tgl>4){ sh = 407; dz = 1147; as =1512 ; mg = 1800 ; is = 1915 ;}
-			if (tgl>9){ sh = 409; dz = 1149; as =1515 ; mg = 1803 ; is = 1918 ;}
-			if (tgl>14) { sh = 411; dz = 1152; as =1518 ; mg = 1806 ; is = 1921 ;}
-			if (tgl>19){ sh = 413; dz = 1154; as =1521 ; mg = 1808 ; is = 1923 ;}
-			if (tgl>24){ sh = 415; dz = 1153; as =1521 ; mg = 1808 ; is = 1924 ;}
-			if (tgl>30){ sh = 417; dz = 1157; as =1524 ; mg = 1812 ; is = 1927 ;}
 		}
 		if(b1!= baris1 || b2!=baris2 ) {
   			b1= baris1 ; b2=baris2 ;
