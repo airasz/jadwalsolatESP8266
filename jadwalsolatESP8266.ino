@@ -85,8 +85,8 @@ long interval=1000;
 long interval2=10;
 bool critical=0;
 int pinSpeaker=28;
-int pred=9;
-int pyel=10;
+int led_green=10;
+int led_yellow=9;
 
 byte zero = 0x00; //workaround for issue #527
 int ct1=1;
@@ -128,9 +128,9 @@ void setup() {
   
    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
   //  display.init();
-
-	pinMode(pred, OUTPUT);
-	pinMode(pyel, OUTPUT);
+  display.setRotation(2);
+	pinMode(led_green, OUTPUT);
+	pinMode(led_yellow, OUTPUT);
   Serial.begin(115200);
 	wifimulti.addAP("al_ghuroba", "air46664");
 	wifimulti.addAP("rumah", "GIGIBOLONG");
@@ -453,7 +453,7 @@ void close_incoming_event(){                    //close_incoming_event code here
 				  
               	}
               }else{critical=0;}    
-            }else{critical=0;digitalWrite(pred, LOW);}
+            }else{critical=0;digitalWrite(led_green, LOW);}
             
         }//else{t=0;}
         if ((jamzhuhur-timeClient.getHours()==1)&&(timeClient.getMinutes()>menitzhuhur)){
@@ -490,7 +490,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             display.print("menjelang azhar");
             display.display();
             if(t<15){if(t>0){critical=1;}else{critical=0;}}
-          }else{critical=0;digitalWrite(pred, LOW);}
+          }else{critical=0;digitalWrite(led_green, LOW);}
         }//else{t=0;}
         if ((jamashar-timeClient.getHours()==1)&&(timeClient.getMinutes()>menitashar)){
           t=menitashar+(60-timeClient.getMinutes());
@@ -525,7 +525,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             if(t<15&&t>0){critical=1;}
             else if (t==0){critical=0;}
               
-          }else{critical=0;digitalWrite(pred, LOW);}
+          }else{critical=0;digitalWrite(led_green, LOW);}
         }//else{t=0;}
         if ((jammaghrib-timeClient.getHours()==1)&&(timeClient.getMinutes()>menitmaghrib)){
           t=menitmaghrib+(60-timeClient.getMinutes());
@@ -552,7 +552,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             display.print("menjelang isya'");
             display.display();
             if(t<15&&t>0){critical=1;}else{critical=0;}   
-          }else{critical=0;digitalWrite(pred, LOW);}
+          }else{critical=0;digitalWrite(led_green, LOW);}
         }//else{t=0;}
         if ((jamisya-timeClient.getHours()==1)&&(timeClient.getMinutes()>menitisya)){
           t=menitisya+(60-timeClient.getMinutes());
@@ -579,7 +579,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             display.print("menjelang shubuh");
             display.display();
             if(t<15&&t>0){critical=1;}else{critical=0;}   
-          }else{critical=0;digitalWrite(pred, LOW);}
+          }else{critical=0;digitalWrite(led_green, LOW);}
         }//else{t=0;}
         if ((jamshubuh-timeClient.getHours()==1)&&(timeClient.getMinutes()>menitshubuh)){
           t=menitshubuh+(60-timeClient.getMinutes());
@@ -612,10 +612,10 @@ void flashy(){                    //flashy code here
       if(t<15&&t>5){
         interval2=500;
         if(fly==1){
-          digitalWrite(pyel, HIGH);
+          digitalWrite(led_yellow, HIGH);
         //Serial.println("on yelow");
             fly=0;
-        }else{digitalWrite(pyel, LOW); fly=1;
+        }else{digitalWrite(led_yellow, LOW); fly=1;
       //  Serial.println("off yelow");
         }
       }
@@ -624,7 +624,7 @@ void flashy(){                    //flashy code here
         bip+=1;
         if(bip>40){
           beeping=1;
-          duration=50;
+          duration=76;
           
           // tone(BUZZER_PIN, NOTE_B4, 20, BUZZER_CHANNEL);
           // noTone(BUZZER_PIN, BUZZER_CHANNEL);
@@ -634,24 +634,25 @@ void flashy(){                    //flashy code here
         }
         interval2=(100*t);
         if(flr==1){
-              digitalWrite(pred, HIGH);
-              digitalWrite(pyel, LOW);
+              digitalWrite(led_green, HIGH);
+              digitalWrite(led_yellow, LOW);
           //    Serial.println("on red");
               flr=0;
-          }else{digitalWrite(pred, LOW); flr=1;//Serial.println("off red");
-          //digitalWrite(pyel, LOW);
+          }else{digitalWrite(led_green, LOW); flr=1;//Serial.println("off red");
+          //digitalWrite(led_yellow, LOW);
         }
       }
       if(t==0){
-          digitalWrite(pred, HIGH);
+          digitalWrite(led_green, HIGH);
           
       }
       previousMillis2=millis();
     } //end if critical
-    else
+    else // if critical false
     {
-     if(flr){interval2=5000;flr=0; previousMillis2=millis();}else{interval2=50;flr=1; previousMillis2=millis();}
-     digitalWrite(pred, flr);
+      // 5 secondly light flash
+      if(flr){interval2=5000;flr=0; previousMillis2=millis();}else{interval2=50;flr=1; previousMillis2=millis();}
+      digitalWrite(led_green, flr);
 
     }
     
@@ -665,7 +666,7 @@ void beep(){
 		if(currentmillis>previousMillis +(duration/2)){
 		  beepcount+=1;
       if(beepcount==1){    
-        tone(buzz, NOTE_C8 );
+        tone(buzz, NOTE_CS6 );
 			}else if(beepcount==3){
         tone(buzz, NOTE_D8 );
       }else if(beepcount>5){
