@@ -232,22 +232,22 @@ void loop() {
     // }
     display_idle();
     Bot_lasttime = millis();
-    /* Serial.print("get Date = ");
-    Serial.println(timeClient.getDate()); 
-    Serial.print("get month = ");
-    Serial.println(timeClient.getMonth()); 
-    Serial.print("date time =");
-    Serial.print(hour());
-    Serial.print("-");
-    Serial.print(minute());
-    Serial.print("-");
-    Serial.print(second());
-    Serial.print("-");
-    Serial.print(day());
-    Serial.print("-");
-    Serial.print(month());
-    Serial.print("-");
-    Serial.println(year()); */
+    // Serial.print("get Date = ");
+    // Serial.println(timeClient.getDate()); 
+    // Serial.print("get month = ");
+    // Serial.println(timeClient.getMonth()); 
+    // Serial.print("date time =");
+    // Serial.print(hour());
+    // Serial.print("-");
+    // Serial.print(minute());
+    // Serial.print("-");
+    // Serial.print(second());
+    // Serial.print("-");
+    // Serial.print(day());
+    // Serial.print("-");
+    // Serial.print(month());
+    // Serial.print("-");
+    // Serial.println(year());
   }
 
 	flashy();
@@ -272,8 +272,8 @@ void display_idle(){                    //display_jam code here
         display.display();
         incoming_event();
 		    display.stopscroll();
-        Serial.print("angka = ");
-        Serial.println(angka);
+        // Serial.print("angka = ");
+        // Serial.println(angka);
     	}
     }
     if (angka==20||angka==40||angka==60||angka==80){
@@ -283,8 +283,8 @@ void display_idle(){                    //display_jam code here
         gettime();
         perhitungan();
         close_incoming_event();
-        Serial.print("angka = ");
-        Serial.println(angka);
+        // Serial.print("angka = ");
+        // Serial.println(angka);
         if(critical==0){
             jadwal_show();
         }
@@ -314,8 +314,8 @@ void display_idle(){                    //display_jam code here
 
     if(angka ==140){
 
-        Serial.print("angka = ");
-        Serial.println(angka);
+        // Serial.print("angka = ");
+        // Serial.println(angka);
         
     }
     if (angka>200){
@@ -595,10 +595,10 @@ void close_incoming_event(){                    //close_incoming_event code here
         }//else{t=0;}
 
 
-      Serial.print("t = ");
-      Serial.println(t);
-      Serial.print("critical = ");
-      Serial.println(critical);
+      // Serial.print("t = ");
+      // Serial.println(t);
+      // Serial.print("critical = ");
+      // Serial.println(critical);
   }
 
 
