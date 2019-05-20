@@ -8,7 +8,7 @@
 #include <WiFiUdp.h>
 
 #include "data_jadwal.h"
-
+#include <Adafruit_NeoPixel.h>
 #define OLED
 // #define TFT
 
@@ -22,7 +22,7 @@
 #endif
 
   #include  "note.h"
-  #define buzz 13
+  #define buzz 9
   #include <SPI.h>
 
   #include <Wire.h>
@@ -31,7 +31,8 @@
   // #include "SSD1306.h"
   #define OLED_RESET LED_BUILTIN
   Adafruit_SSD1306 display(OLED_RESET);
-  
+  #define NEOPIN 14 
+  Adafruit_NeoPixel NEO = Adafruit_NeoPixel(1, NEOPIN, NEO_GRBW + NEO_KHZ800);
   // SSD1306 display(0x3c, 4, 5);
   
 #include <ESP8266WiFi.h>
@@ -86,7 +87,7 @@ long interval2=10;
 bool critical=0;
 int pinSpeaker=28;
 int led_green=10;
-int led_yellow=9;
+int led_yellow=13;
 
 byte zero = 0x00; //workaround for issue #527
 int ct1=1;
@@ -101,7 +102,7 @@ boolean lt1= false;
 boolean lt3= false;
 boolean lt2= false;
 boolean jshalat= true;
-
+String kl="±";
 
 int Bulan,tgl,sh,is,dz,as,mg;
 int menitisya1,menitisya2,menitshubuh1,menitshubuh2,menitzhuhur1,menitzhuhur2;
@@ -120,7 +121,8 @@ long Bot_lasttime;   //last time messages' scan has been done
 bool Start = false;
 
 
-
+uint32_t colore;
+uint32_t praytimeColor;
 unsigned long timeNow = 0;
 unsigned long timeLast = 0;
 void setup() {
@@ -128,9 +130,11 @@ void setup() {
   
    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
   //  display.init();
-  display.setRotation(2);
+  display.setRotation(0);
 	pinMode(led_green, OUTPUT);
 	pinMode(led_yellow, OUTPUT);
+  NEO.begin();
+  NEO.show();
   Serial.begin(115200);
 	wifimulti.addAP("al_ghuroba", "air46664");
 	wifimulti.addAP("rumah", "GIGIBOLONG");
@@ -159,13 +163,20 @@ void setup() {
     if (x>128){x=0;display.drawFastHLine(0,28,128,BLACK); display.display();}
   // display.setCursor(x,20);
     display.drawPixel(x,random(25, 28) ,WHITE);
+    colore=NEO.Color(120, 100, 0);
+    NEO.setPixelColor(0,colore);
+    NEO.show();
     // dconn+=".";
     // display.print(dconn);
-    Serial.print(".");
+    // Serial.print(".");
     display.display();
     delay(200);
   }
   conn="connected!\nrequest time to\nNTP server";
+  
+  colore=NEO.Color(0,100,0);
+  NEO.setPixelColor(0,colore);
+  NEO.show();
   display.clearDisplay();
 	display.setCursor(0,0);
 	display.print(conn);
@@ -190,6 +201,7 @@ void setup() {
     tone(buzz, NOTE_A2 );
     delay(200);
     noTone(buzz);
+    // ESP.restart();
   }else{beeping=1;
   duration=100;
   }
@@ -274,6 +286,7 @@ void display_idle(){                    //display_jam code here
 		    display.stopscroll();
         Serial.print("angka = ");
         Serial.println(angka);
+        if(timeClient.getYear()<2018){ESP.restart();} 
     	}
     }
     if (angka==20||angka==40||angka==60||angka==80){
@@ -361,10 +374,11 @@ void incoming_event(){                    //incoming_event code here
   if(((timeClient.getHours()<jamshubuh||(timeClient.getHours()==jamshubuh&&timeClient.getMinutes()<menitshubuh)))  ||    ((timeClient.getHours()> jamisya||(timeClient.getHours()==jamisya&&timeClient.getMinutes()>menitisya )))) {
 
         
-         display.setCursor(random(0,20),10);
+        display.setCursor(random(0,20),10);
         display.setCursor(random(0,50),random (10,20));
         display.print("subuh > " + shubuh);
         display.display();
+        praytimeColor=NEO.Color(200,0,0);
 
 		  
   }
@@ -376,6 +390,7 @@ void incoming_event(){                    //incoming_event code here
         display.print("dzuhur > " + zhuhur);
         display.display();
       
+        praytimeColor=NEO.Color(200,200,0);
        
   }
   if((timeClient.getHours()<jamashar||(timeClient.getHours()==jamashar&&timeClient.getMinutes()<menitashar))  &&(timeClient.getHours()>jamzhuhur||timeClient.getHours()==jamzhuhur&&timeClient.getMinutes()>menitzhuhur)){
@@ -386,6 +401,8 @@ void incoming_event(){                    //incoming_event code here
         // Serial.print("ashar = ");
         // Serial.println(ashar);
         display.display();
+        
+        praytimeColor=NEO.Color(0,200,0);
   }
 
   if((timeClient.getHours()<jammaghrib||(timeClient.getHours()==jammaghrib&&timeClient.getMinutes()<menitmaghrib))  &&(timeClient.getHours()>jamashar||timeClient.getHours()==jamashar&&timeClient.getMinutes()>menitashar)){
@@ -393,6 +410,7 @@ void incoming_event(){                    //incoming_event code here
         display.setCursor(random(0,20),10);
         display.print("maghrib > " + maghrib);
         display.display();
+        praytimeColor=NEO.Color(0,200,200);
   }
 
   if((timeClient.getHours()<jamisya||(timeClient.getHours()==jamisya&&timeClient.getMinutes()<menitisya))  &&(timeClient.getHours()>jammaghrib||timeClient.getHours()==jammaghrib&&timeClient.getMinutes()>menitmaghrib)){
@@ -400,6 +418,7 @@ void incoming_event(){                    //incoming_event code here
         display.setCursor(random(0,20),10);
         display.print("isya' > " + isya);
         display.display();
+        praytimeColor=NEO.Color(0,0,200);
   }
 
         // Serial.print(hour());
@@ -438,7 +457,7 @@ void close_incoming_event(){                    //close_incoming_event code here
               t=menitzhuhur-timeClient.getMinutes();
               display.clearDisplay();
               display.setCursor(0,0);
-              display.print(t);
+              display.printf("± %d",t);
               display.print(" menit");
               display.setCursor(0,10);
               display.print("menjelang dzuhur");
@@ -453,7 +472,10 @@ void close_incoming_event(){                    //close_incoming_event code here
 				  
               	}
               }else{critical=0;}    
-            }else{critical=0;digitalWrite(led_green, LOW);}
+            }else{critical=0;digitalWrite(led_green, LOW);
+              colore=NEO.Color(0,200,0);
+              NEO.setPixelColor(1,0);
+            }
             
         }//else{t=0;}
         if ((jamzhuhur-timeClient.getHours()==1)&&(timeClient.getMinutes()>menitzhuhur)){
@@ -461,7 +483,7 @@ void close_incoming_event(){                    //close_incoming_event code here
           display.clearDisplay();
           
           display.setCursor(0,0);
-          display.print(t);
+          display.printf("± %d, t");
           display.print(" menit");
           display.setCursor(0,10);
           display.print("menjelang dzuhur");
@@ -484,7 +506,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             t=menitashar-timeClient.getMinutes();
             display.clearDisplay();
             display.setCursor(0,0);
-            display.print(t);
+            display.printf("± %d, t");
             display.print(" menit");
             display.setCursor(0,10);
             display.print("menjelang azhar");
@@ -497,7 +519,7 @@ void close_incoming_event(){                    //close_incoming_event code here
           display.clearDisplay();
           
           display.setCursor(0,0);
-          display.print(t);
+          display.printf("± %d, t");
           display.print(" menit");
           display.setCursor(0,10);
           display.print("menjelang azhar");
@@ -517,7 +539,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             
             display.clearDisplay();
             display.setCursor(0,0);
-            display.print(t);
+            display.printf("± %d", t);
             display.print(" menit");
             display.setCursor(0,10);
             display.print("menjelang maghrib");
@@ -532,7 +554,7 @@ void close_incoming_event(){                    //close_incoming_event code here
           display.clearDisplay();
           
           display.setCursor(0,0);
-          display.print(t);
+          display.printf("± %d, t");
           display.print(" menit");
           display.setCursor(0,10);
           display.print("menjelang maghrib");
@@ -546,7 +568,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             display.clearDisplay();
             
             display.setCursor(0,0);
-            display.print(t);
+            display.printf("± %d", t);
             display.print(" menit");
             display.setCursor(0,10);
             display.print("menjelang isya'");
@@ -559,7 +581,7 @@ void close_incoming_event(){                    //close_incoming_event code here
           display.clearDisplay();
           
           display.setCursor(0,0);
-          display.print(t);
+          display.printf("± %d", t);
           display.print(" menit");
           display.setCursor(0,10);
           display.print("menjelang isya'");
@@ -573,7 +595,7 @@ void close_incoming_event(){                    //close_incoming_event code here
             display.clearDisplay();
             
             display.setCursor(0,0);
-            display.print(t);
+            display.printf("± %d, t");
             display.print(" menit");
             display.setCursor(0,10);
             display.print("menjelang shubuh");
@@ -586,7 +608,7 @@ void close_incoming_event(){                    //close_incoming_event code here
           display.clearDisplay();
           
           display.setCursor(0,0);
-          display.print(t);
+          display.printf("± %d, t");
           display.print(" menit");
           display.setCursor(0,10);
           display.print("menjelang shubuh'");
@@ -613,9 +635,15 @@ void flashy(){                    //flashy code here
         interval2=500;
         if(fly==1){
           digitalWrite(led_yellow, HIGH);
+          colore=NEO.Color(150-(t*10)+10,0,0+(t*10)-10);
+          NEO.setPixelColor(0,colore);
+          NEO.show();
         //Serial.println("on yelow");
             fly=0;
         }else{digitalWrite(led_yellow, LOW); fly=1;
+         
+      NEO.setPixelColor(0,0);
+      NEO.show();
       //  Serial.println("off yelow");
         }
       }
@@ -636,22 +664,43 @@ void flashy(){                    //flashy code here
         if(flr==1){
               digitalWrite(led_green, HIGH);
               digitalWrite(led_yellow, LOW);
-          //    Serial.println("on red");
+              colore=NEO.Color(150-(t*10)+10,0,0+(t*10)-10);
+      NEO.setPixelColor(0,colore);
+      NEO.show();
+          //    Serial.println("on red");colore=NEO.Color(200,200,0);
               flr=0;
           }else{digitalWrite(led_green, LOW); flr=1;//Serial.println("off red");
           //digitalWrite(led_yellow, LOW);
+      NEO.setPixelColor(0,0);
+      NEO.show();
         }
       }
       if(t==0){
           digitalWrite(led_green, HIGH);
           
       }
+     
+     
       previousMillis2=millis();
     } //end if critical
     else // if critical false
     {
       // 5 secondly light flash
-      if(flr){interval2=5000;flr=0; previousMillis2=millis();}else{interval2=50;flr=1; previousMillis2=millis();}
+      if(flr){
+        interval2=5000;flr=0; 
+        colore=NEO.Color(0,0,0);
+        NEO.setPixelColor(0,colore);
+        NEO.show();
+        previousMillis2=millis();
+      }
+      else{
+        interval2=50;flr=1; 
+        
+        // colore=NEO.Color(0,0,200);
+        NEO.setPixelColor(0,praytimeColor);
+        NEO.show();
+        previousMillis2=millis();
+        }
       digitalWrite(led_green, flr);
 
     }
