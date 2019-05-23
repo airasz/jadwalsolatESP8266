@@ -21,20 +21,20 @@
 
 #endif
 
-#include "note.h"
-#define buzz 9
-#include <SPI.h>
+  #include  "note.h"
+  #define buzz 9
+  #include <SPI.h>
 
-#include <Wire.h>
-// #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-// #include "SSD1306.h"
-#define OLED_RESET LED_BUILTIN
-Adafruit_SSD1306 display(OLED_RESET);
-#define NEOPIN 14
-Adafruit_NeoPixel NEO = Adafruit_NeoPixel(1, NEOPIN, NEO_GRBW + NEO_KHZ800);
-// SSD1306 display(0x3c, 4, 5);
-
+  #include <Wire.h>
+  // #include <Adafruit_GFX.h>
+  #include <Adafruit_SSD1306.h>
+  // #include "SSD1306.h"
+  #define OLED_RESET LED_BUILTIN
+  Adafruit_SSD1306 display(OLED_RESET);
+  #define NEOPIN 14 
+  Adafruit_NeoPixel NEO = Adafruit_NeoPixel(1, NEOPIN, NEO_GRBW + NEO_KHZ800);
+  // SSD1306 display(0x3c, 4, 5);
+  
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 
@@ -174,8 +174,11 @@ void setup()
     ESP.wdtFeed();
     delay(200);
   }
-  conn = "connected!\nrequest time to\nNTP server";
-
+  conn="connected!\nrequest time to\nNTP server";
+  
+  colore=NEO.Color(0,100,0);
+  NEO.setPixelColor(0,colore);
+  NEO.show();
   display.clearDisplay();
   display.setCursor(0, 0);
   display.print(conn);
