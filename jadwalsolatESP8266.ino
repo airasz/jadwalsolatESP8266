@@ -22,7 +22,7 @@
 #endif
 
   #include  "note.h"
-  #define buzz 9
+  #define buzz 13
   #include <SPI.h>
 
   #include <Wire.h>
@@ -84,7 +84,7 @@ long interval2 = 10;
 bool critical = 0;
 int pinSpeaker = 28;
 int led_green = 10;
-int led_yellow = 13;
+int led_yellow = 19;
 
 byte zero = 0x00; //workaround for issue #527
 int ct1 = 1;
@@ -283,6 +283,10 @@ void loop()
 void display_idle()
 { //display_jam code here
   angka++;
+  if( ( angka % 10)==0){
+    close_incoming_event();
+    // Serial.println("/10 minutes calling");
+  }
   if (angka == 1 || angka == 10 || angka == 30 || angka == 50 || angka == 70)
   {
     if (wake == 1)
@@ -769,7 +773,8 @@ void flashy()
         if (fly == 1)
         {
           digitalWrite(led_yellow, HIGH);
-          colore = NEO.Color(150 - (t * 10) + 10, 0, 0 + (t * 10) - 10);
+          colore = NEO.Color(0 + (t * 10) - 10, 150 - (t * 10), 0); // red to green
+          // colore = NEO.Color(150 - (t * 10) + 10, 0, 0 + (t * 10) - 10);  // red to blue
           NEO.setPixelColor(0, colore);
           NEO.show();
           //Serial.println("on yelow");
@@ -804,7 +809,8 @@ void flashy()
         {
           digitalWrite(led_green, HIGH);
           digitalWrite(led_yellow, LOW);
-          colore = NEO.Color(150 - (t * 10) + 10, 0, 0 + (t * 10) - 10);
+          colore = NEO.Color(0 + (t * 10) - 10, 150 - (t * 10), 0); // red to green
+          // colore = NEO.Color(150 - (t * 10) + 10, 0, 0 + (t * 10) - 10); // red to blue
           NEO.setPixelColor(0, colore);
           NEO.show();
           //    Serial.println("on red");colore=NEO.Color(200,200,0);
