@@ -9,6 +9,9 @@
 
 #include "data_jadwal.h"
 #include <Adafruit_NeoPixel.h>
+
+#include "ds3231.h"
+
 #define OLED
 // #define TFT
 
@@ -43,6 +46,8 @@ ESP8266WiFiMulti wifimulti;
 #define NTP_INTERVAL 60 * 1000     // In miliseconds
 #define NTP_ADDRESS "pool.ntp.org" //
 // #define NTP_ADDRESS  "id.pool.ntp.org"
+
+#define DS3231_I2C_ADDRESS 0x68
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, NTP_ADDRESS, NTP_OFFSET, NTP_INTERVAL);
@@ -135,9 +140,7 @@ void setup()
   NEO.begin();
   NEO.show();
   Serial.begin(115200);
-  wifimulti.addAP("al_ghuroba", "air46664");
-  wifimulti.addAP("rumah", "GIGIBOLONG");
-  wifimulti.addAP("XZ5C", "air46664");
+
 
   display.setTextSize(1);
   display.setTextColor(WHITE);
@@ -145,8 +148,40 @@ void setup()
   display.clearDisplay();
   display.println("ESP jadwal solat!");
   display.display();
+  // setDS3231time(0,50,17,3,4,7,12); 
   String dconn;
+  bool RTCnotCorrect=0;
+  Serial.println("read RTC");
+  readDS3231time();
+  if(th<18){
 
+    Serial.println("time not correct\nget ntp time");
+    RTCnotCorrect=1;
+    getNTPtime();
+  }
+  if(RTCnotCorrect){
+
+    Serial.println("set RTC");
+    RTCnotCorrect=0;
+  }
+      //setDS3231time(s+5,min,h,dow,d,m,y);
+
+  // if(!wifiAvailable)
+
+
+  
+  close_incoming_event();
+}
+
+int freqsync = 0;
+String formattedTime, formattedDate;
+
+void getNTPtime(){
+
+  
+  wifimulti.addAP("al_ghuroba", "air46664");
+  wifimulti.addAP("rumah", "GIGIBOLONG");
+  wifimulti.addAP("XZ5C", "air46664");
   display.setCursor(0, 10);
   display.display();
   String conn = "connecting to wifi ";
@@ -155,25 +190,39 @@ void setup()
   colore = NEO.Color(120, 100, 0);
   NEO.setPixelColor(0, colore);
   NEO.show();
-  while (wifimulti.run() != WL_CONNECTED)
+  int numTry=0;
+  int maxTry=50;
+  bool wifiAvailable=1;
+  while (wifimulti.run() != WL_CONNECTED &&numTry<maxTry)
   {
-    int x;
-    x += 2;
-    if (x > 128)
-    {
-      x = 0;
-      display.drawFastHLine(0, 28, 128, BLACK);
+    numTry++;
+    if(numTry<maxTry){
+      int x;
+      x += 2;
+      if (x > 128)
+      {
+        x = 0;
+        display.drawFastHLine(0, 28, 128, BLACK);
+        display.display();
+      }
+      // display.setCursor(x,20);
+      display.drawPixel(x, random(25, 28), WHITE);
+      // dconn+=".";
+      // display.print(dconn);
+      // Serial.print(".");
       display.display();
+      ESP.wdtFeed();
+    }else{
+      break;
     }
-    // display.setCursor(x,20);
-    display.drawPixel(x, random(25, 28), WHITE);
-    // dconn+=".";
-    // display.print(dconn);
-    // Serial.print(".");
-    display.display();
-    ESP.wdtFeed();
+    
     delay(200);
+
   }
+
+ 
+
+  // beeping=1;
   conn="connected!\nrequest time to\nNTP server";
   
   colore=NEO.Color(0,100,0);
@@ -191,11 +240,10 @@ void setup()
              clk_server.c_str());
   timeinfo.tm_year = 0;
   // delay(1200);
-  gettime();
 
   timeClient.update();
-  // delay(1000);
-  if (timeClient.getYear() < 2018)
+  gettime();
+   if (timeClient.getYear() < 2018)
   {
 
     colore = NEO.Color(120, 0, 0);
@@ -206,7 +254,8 @@ void setup()
     tone(buzz, NOTE_A2 );
     delay(200);
     noTone(buzz);
-    // ESP.restart();
+    
+    ESP.restart();
   }
   else
   {
@@ -215,16 +264,23 @@ void setup()
     colore = NEO.Color(0, 100, 0);
     NEO.setPixelColor(0, colore);
     NEO.show();
+    
+    Serial.print(" NTPtime > ");
+    Serial.printf("D > %d ",d);
+    Serial.printf("MN > %d ",mn);
+    Serial.printf("J > %d ",j);
+    Serial.printf("TG > %d ",tg);
+    Serial.printf("BL > %d ",bl);
+    Serial.printf("TH > %d \n",th);
+    Serial.println(th);
+    setDS3231time(d,mn,j,timeClient.getDay(),tg,bl,th);  
   }
-
-  Serial.printf("jam = %d", timeClient.getYear());
-  // beeping=1;
+  Serial.printf("tahun = %d\n", timeClient.getYear());
+  delay(50);
+  
   WiFi.disconnect(true);
   WiFi.mode(WIFI_OFF);
 }
-
-int freqsync = 0;
-String formattedTime, formattedDate;
 
 void loop()
 {
@@ -280,14 +336,31 @@ void loop()
   beep();
 }
 
+byte bcdToDec(byte val)  {
+// Convert binary coded decimal to normal decimal numbers
+  return ( (val/16*10) + (val%16) );
+}
+
+byte decToBcd(byte val){
+// Convert normal decimal numbers to binary coded decimal
+  return ( (val/10*16) + (val%10) );
+}
+String clockDigit(int i){
+  String s;
+  if (i<10){
+    s="0"+String(i);
+  }else{s=String(i);}
+  return s;
+}
 void display_idle()
 { //display_jam code here
   angka++;
   if( ( angka % 10)==0){
-    close_incoming_event();
+    // close_incoming_event();
     // Serial.println("/10 minutes calling");
   }
-  if (angka == 1 || angka == 10 || angka == 30 || angka == 50 || angka == 70)
+  // if (angka == 1 || angka == 10 || angka == 30 || angka == 50 || angka == 70)
+  if (angka == 1 || angka == 14  )
   {
     if (wake == 1)
     {
@@ -295,31 +368,51 @@ void display_idle()
       timeinfo.tm_year = 0;
 
       display.stopscroll();
-      gettime();
+      // gettime();
+      readDS3231time();
       delay(20);
       perhitungan();
       display.clearDisplay();
-      display.setCursor(random(0, 20), 0);
-
-      display.print(formattedTime);
+      // display.setCursor(random(0, 20), 0);
+      String timee=formattedTime;
+      timee=timee.substring(0, 5);
+      String date=formattedTime.substring(6);
+      display.setCursor(0,0);
+      display.setTextSize(3);
+      String clocke=clockDigit(j)+":"+clockDigit(mn);
+      display.print(clocke);
+      display.setTextSize(1);
+      display.setCursor(90,0);
+      display.print(tg);
+      display.setCursor(90,8);
+      display.print(bl);
+      display.setCursor(90,16);
+      display.print(th);
+      
+      // display.print()
       display.display();
       incoming_event();
       display.stopscroll();
       Serial.print("angka = ");
       Serial.println(angka);
-      if (timeClient.getYear() < 2018)
-      {
-        ESP.restart();
-      }
+      Serial.print("clocke = ");
+      Serial.println(clocke);
+      // int tahun=timeClient.getYear();
+      // if (tahun < 2018)
+      // {
+      //   ESP.restart();
+      // }
     }
   }
-  if (angka == 20 || angka == 40 || angka == 60 || angka == 80)
+  // if (angka == 20 || angka == 40 || angka == 60 || angka == 80)
+  if (angka == 7 )
   {
     if (wake == 1)
     {
 
       digitalWrite(7, HIGH);
       gettime();
+      readDS3231time();
       perhitungan();
       close_incoming_event();
       // Serial.print("angka = ");
@@ -331,7 +424,7 @@ void display_idle()
       display.setTextSize(1);
     }
   }
-  if (angka == 100)
+  if (angka == 20)
   {
     //sleep screen
     if (wake == 1)
@@ -342,13 +435,21 @@ void display_idle()
       display.display();
       //digitalWrite(7, LOW);
 
-      Serial.println("screen off");
+      // Serial.println("screen off");
+      // Serial.println("go to deep sleep");
+      // ESP.deepSleep(10000000, RF_DISABLED);
     }
     //avoid sleep screen if on critical condition
     if (critical == 1)
     {
       wake = 1;
       angka = 0;
+    }else{
+      
+      Serial.println("screen off");
+      Serial.println("go to deep sleep");
+      //ESP.deepSleep(minute*second*1000000, RF_DISABLED);
+      ESP.deepSleep(3*60*1000000, RF_DISABLED);
     }
   }
 
@@ -384,19 +485,19 @@ void jadwal_show()
     display.setCursor(rnd, 0);
     display.print("sbh " + shubuh + " | zh " + zhuhur);
     display.setCursor(rnd, 10);
-    display.print("as  " + ashar + " | mg " + maghrib);
+    display.print("as  " + ashar  + " | mg " + maghrib);
     display.setCursor(rnd, 20);
     display.print("is  " + isya);
     display.display();
-    if (!schroll)
-    {
-      display.startscrollright(0x00, 0x0F);
-      schroll = 1;
-    }
-    else
-    {
-      schroll = 0;
-    }
+    // if (!schroll)
+    // {
+    //   display.startscrollright(0x00, 0x0F);
+    //   schroll = 1;
+    // }
+    // else
+    // {
+    //   schroll = 0;
+    // }
   }
 }
 
@@ -406,29 +507,28 @@ void incoming_event()
   //   display.setCursor(i,1);
   //   display.print(" ");
   // }
-  if (((timeClient.getHours() < jamshubuh || (timeClient.getHours() == jamshubuh && timeClient.getMinutes() < menitshubuh))) || ((timeClient.getHours() > jamisya || (timeClient.getHours() == jamisya && timeClient.getMinutes() > menitisya))))
+  if (((j < jamshubuh || (j == jamshubuh && mn < menitshubuh))) || ((j > jamisya || (j == jamisya && mn > menitisya))))
   {
 
-    display.setCursor(random(0, 20), 10);
-    display.setCursor(random(0, 50), random(10, 20));
+    display.setCursor(random(0, 20), 24);
     display.print("subuh > " + shubuh);
     display.display();
     praytimeColor = NEO.Color(200, 0, 0);
   }
 
-  if ((timeClient.getHours() < jamzhuhur || (timeClient.getHours() == jamzhuhur && timeClient.getMinutes() < menitzhuhur)) && (timeClient.getHours() > jamshubuh || timeClient.getHours() == jamshubuh && timeClient.getMinutes() > menitshubuh))
+  if ((j < jamzhuhur || (j == jamzhuhur && mn < menitzhuhur)) && (j > jamshubuh || j == jamshubuh && mn > menitshubuh))
   {
 
-    display.setCursor(random(0, 20), 10);
+    display.setCursor(random(0, 20), 24);
     display.print("dzuhur > " + zhuhur);
     display.display();
 
     praytimeColor = NEO.Color(200, 200, 0);
   }
-  if ((timeClient.getHours() < jamashar || (timeClient.getHours() == jamashar && timeClient.getMinutes() < menitashar)) && (timeClient.getHours() > jamzhuhur || timeClient.getHours() == jamzhuhur && timeClient.getMinutes() > menitzhuhur))
+  if ((j < jamashar || (j == jamashar && mn < menitashar)) && (j > jamzhuhur || j == jamzhuhur && mn > menitzhuhur))
   {
 
-    display.setCursor(random(0, 20), 10);
+    display.setCursor(random(0, 20), 24);
     //display.setCursor(random(0,50),random (10,20));
     display.print("ashar > " + ashar);
     // Serial.print("ashar = ");
@@ -438,19 +538,19 @@ void incoming_event()
     praytimeColor = NEO.Color(0, 200, 0);
   }
 
-  if ((timeClient.getHours() < jammaghrib || (timeClient.getHours() == jammaghrib && timeClient.getMinutes() < menitmaghrib)) && (timeClient.getHours() > jamashar || timeClient.getHours() == jamashar && timeClient.getMinutes() > menitashar))
+  if ((j < jammaghrib || (j == jammaghrib && mn < menitmaghrib)) && (j > jamashar || j == jamashar && mn > menitashar))
   {
 
-    display.setCursor(random(0, 20), 10);
+    display.setCursor(random(0, 20), 24);
     display.print("maghrib > " + maghrib);
     display.display();
     praytimeColor = NEO.Color(80, 0, 80);
   }
 
-  if ((timeClient.getHours() < jamisya || (timeClient.getHours() == jamisya && timeClient.getMinutes() < menitisya)) && (timeClient.getHours() > jammaghrib || timeClient.getHours() == jammaghrib && timeClient.getMinutes() > menitmaghrib))
+  if ((j < jamisya || (j == jamisya && mn < menitisya)) && (j > jammaghrib || j == jammaghrib && mn > menitmaghrib))
   {
 
-    display.setCursor(random(0, 20), 10);
+    display.setCursor(random(0, 20), 24);
     display.print("isya' > " + isya);
     display.display();
     praytimeColor = NEO.Color(0, 0, 140);
@@ -486,11 +586,11 @@ bool send_info = false;
 void close_incoming_event()
 { //close_incoming_event code here
 
-  if (timeClient.getHours() == jamzhuhur)
+  if (j == jamzhuhur)
   {
-    if (timeClient.getMinutes() < menitzhuhur)
+    if (mn < menitzhuhur)
     {
-      t = menitzhuhur - timeClient.getMinutes();
+      t = menitzhuhur - mn;
       display.clearDisplay();
       display.setCursor(0, 0);
       // display.printf("± %d",t);
@@ -523,9 +623,9 @@ void close_incoming_event()
     }
 
   } //else{t=0;}
-  if ((jamzhuhur - timeClient.getHours() == 1) && (timeClient.getMinutes() > menitzhuhur))
+  if ((jamzhuhur - j == 1) && (mn > menitzhuhur))
   {
-    t = menitzhuhur + (60 - timeClient.getMinutes());
+    t = menitzhuhur + (60 - mn);
     display.clearDisplay();
 
     display.setCursor(0, 0);
@@ -551,11 +651,11 @@ void close_incoming_event()
       critical = 0;
     }
   } //else{t=0;}
-  if (timeClient.getHours() == jamashar)
+  if (j == jamashar)
   {
-    if (timeClient.getMinutes() < menitashar)
+    if (mn < menitashar)
     {
-      t = menitashar - timeClient.getMinutes();
+      t = menitashar - mn;
       display.clearDisplay();
       display.setCursor(0, 0);
       // display.printf("± %d", t);
@@ -581,9 +681,9 @@ void close_incoming_event()
       digitalWrite(led_green, LOW);
     }
   } //else{t=0;}
-  if ((jamashar - timeClient.getHours() == 1) && (timeClient.getMinutes() > menitashar))
+  if ((jamashar - j == 1) && (mn > menitashar))
   {
-    t = menitashar + (60 - timeClient.getMinutes());
+    t = menitashar + (60 - mn);
     display.clearDisplay();
 
     display.setCursor(0, 0);
@@ -604,11 +704,11 @@ void close_incoming_event()
       }
     }
   } //else{t=0;}
-  if (timeClient.getHours() == jammaghrib)
+  if (j == jammaghrib)
   {
-    if (timeClient.getMinutes() < menitmaghrib)
+    if (mn < menitmaghrib)
     {
-      t = menitmaghrib - timeClient.getMinutes();
+      t = menitmaghrib - mn;
 
       display.clearDisplay();
       display.setCursor(0, 0);
@@ -632,9 +732,9 @@ void close_incoming_event()
       digitalWrite(led_green, LOW);
     }
   } //else{t=0;}
-  if ((jammaghrib - timeClient.getHours() == 1) && (timeClient.getMinutes() > menitmaghrib))
+  if ((jammaghrib - j == 1) && (mn > menitmaghrib))
   {
-    t = menitmaghrib + (60 - timeClient.getMinutes());
+    t = menitmaghrib + (60 - mn);
     display.clearDisplay();
 
     display.setCursor(0, 0);
@@ -652,12 +752,12 @@ void close_incoming_event()
       critical = 0;
     }
   } //else{t=0;}
-  if (timeClient.getHours() == jamisya)
+  if (j == jamisya)
   {
-    if (timeClient.getMinutes() < menitisya)
+    if (mn < menitisya)
     {
 
-      t = menitisya - timeClient.getMinutes();
+      t = menitisya - mn;
       display.clearDisplay();
 
       display.setCursor(0, 0);
@@ -681,9 +781,9 @@ void close_incoming_event()
       digitalWrite(led_green, LOW);
     }
   } //else{t=0;}
-  if ((jamisya - timeClient.getHours() == 1) && (timeClient.getMinutes() > menitisya))
+  if ((jamisya - j == 1) && (mn > menitisya))
   {
-    t = menitisya + (60 - timeClient.getMinutes());
+    t = menitisya + (60 - mn);
     display.clearDisplay();
 
     display.setCursor(0, 0);
@@ -701,12 +801,12 @@ void close_incoming_event()
       critical = 0;
     }
   } //else{t=0;}
-  if (timeClient.getHours() == jamshubuh)
+  if (j == jamshubuh)
   {
-    if (timeClient.getMinutes() < menitshubuh)
+    if (mn < menitshubuh)
     {
 
-      t = menitshubuh - timeClient.getMinutes();
+      t = menitshubuh - mn;
       display.clearDisplay();
 
       display.setCursor(0, 0);
@@ -730,9 +830,9 @@ void close_incoming_event()
       digitalWrite(led_green, LOW);
     }
   } //else{t=0;}
-  if ((jamshubuh - timeClient.getHours() == 1) && (timeClient.getMinutes() > menitshubuh))
+  if ((jamshubuh - j == 1) && (mn > menitshubuh))
   {
-    t = menitshubuh + (60 - timeClient.getMinutes());
+    t = menitshubuh + (60 - mn);
     display.clearDisplay();
 
     display.setCursor(0, 0);
@@ -824,10 +924,10 @@ void flashy()
           NEO.setPixelColor(0, 0);
           NEO.show();
         }
-        int red = 150 - (t * 10) + 10;
-        int blu = 0 + (t * 10) - 10;
-        Serial.printf("red = %d ", red);
-        Serial.printf("blu = %d ", blu);
+        // int red = 150 - (t * 10) + 10;
+        // int blu = 0 + (t * 10) - 10;
+        // Serial.printf("red = %d ", red);
+        // Serial.printf("blu = %d ", blu);
       }
 
       if (t == 0)
@@ -916,11 +1016,50 @@ void gettime()
   j = timeClient.getHours();
   mn = timeClient.getMinutes();
   d = timeClient.getSeconds();
-  th = timeClient.getYear();
+  th = timeClient.getYear()-2000;
   bl = timeClient.getMonth();
   tg = timeClient.getDate();
 }
+void readDS3231time()
+{
+    Wire.beginTransmission(DS3231_I2C_ADDRESS);
+    Wire.write(0); // set DS3231 register pointer to 00h
+    Wire.endTransmission();
+    Wire.requestFrom(DS3231_I2C_ADDRESS, 7);
+    // request seven bytes of data from DS3231 starting from register 00h
+    d = bcdToDec(Wire.read() & 0x7f);
+    mn = bcdToDec(Wire.read());
+    j = bcdToDec(Wire.read() & 0x3f);
+    hk = bcdToDec(Wire.read()); //0-6 -> sunday - Saturdaymn = bcdToDec(Wire.read());
+    tg = bcdToDec(Wire.read());
+    bl = bcdToDec(Wire.read());
+    th = bcdToDec(Wire.read());
+    Serial.print(" RTC > ");
+    Serial.printf("D > %d ",d);
+    Serial.printf("MN > %d ",mn);
+    Serial.printf("J > %d ",j);
+    Serial.printf("TG > %d ",tg);
+    Serial.printf("BL > %d ",bl);
+    Serial.printf("TH > %d \n",th);
+    Serial.println(th);
+}
 
+void setDS3231time(byte second, byte minute, byte hour, byte dayOfWeek, byte 
+dayOfMonth, byte month, byte year) 
+{ 
+
+		// sets time and date data to DS3231 
+		Wire.beginTransmission(DS3231_I2C_ADDRESS); 
+		Wire.write(0); // set next input to start at the seconds register 
+		Wire.write(decToBcd(second)); // set seconds 
+		Wire.write(decToBcd(minute)); // set minutes 
+		Wire.write(decToBcd(hour)); // set hours 
+		Wire.write(decToBcd(dayOfWeek)); // set day of week (1=Sunday, 7=Saturday) 
+		Wire.write(decToBcd(dayOfMonth)); // set date (1 to 31) 
+		Wire.write(decToBcd(month)); // set month 
+		Wire.write(decToBcd(year)); // set year (0 to 99) 
+		Wire.endTransmission(); 
+} 
 //function for synctoglobe
 void synctoglobe()
 {

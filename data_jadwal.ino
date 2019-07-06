@@ -160,48 +160,48 @@ void data_bulan(){
 
 		}
 		if (Bulan ==6) {
-			// if 		(tgl==1){sh=436;  dz = 1152;  as = 1514;  mg = 1746;  is = 1900;}
-			// else if (tgl==2){sh=436;  dz = 1153;  as = 1515;  mg = 1746;  is = 1900;}
-			// else if (tgl==3){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1900;}
-			// else if (tgl==4){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1900;}
-			// else if (tgl==5){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1901;}
-			// else if (tgl==6){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1901;}
-			// else if (tgl==7){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1901;}
-			// else if (tgl==8){sh=437;  dz = 1154;  as = 1515;  mg = 1746;  is = 1901;}
-			// else if (tgl==9){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1901;}
-			// else if (tgl==10){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1902;}
-			// else if (tgl==11){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1902;}
-			// else if (tgl==12){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1902;}
-			// else if (tgl==13){sh=438;  dz = 1155;  as = 1516;  mg = 1747;  is = 1902;}
-			// else if (tgl==14){sh=439;  dz = 1155;  as = 1517;  mg = 1747;  is = 1902;}
-			// else if (tgl==15){sh=439;  dz = 1155;  as = 1517;  mg = 1748;  is = 1903;}
-			// else if (tgl==16){sh=439;  dz = 1155;  as = 1517;  mg = 1748;  is = 1903;}
-			// else if (tgl==17){sh=439;  dz = 1155;  as = 1517;  mg = 1748;  is = 1903;}
-			// else if (tgl==18){sh=439;  dz = 1156;  as = 1517;  mg = 1748;  is = 1903;}
-			// else if (tgl==19){sh=440;  dz = 1156;  as = 1518;  mg = 1748;  is = 1903;}
-			// else if (tgl==20){sh=440;  dz = 1156;  as = 1518;  mg = 1749;  is = 1904;}
-			// else if (tgl==21){sh=440;  dz = 1156;  as = 1518;  mg = 1749;  is = 1904;}
-			// else if (tgl==22){sh=440;  dz = 1157;  as = 1518;  mg = 1749;  is = 1904;}
-			// else if (tgl==23){sh=440;  dz = 1157;  as = 1519;  mg = 1749;  is = 1904;}
-			// else if (tgl==24){sh=441;  dz = 1157;  as = 1519;  mg = 1750;  is = 1904;}
-			// else if (tgl==25){sh=441;  dz = 1157;  as = 1519;  mg = 1750;  is = 1904;}
-			// else if (tgl==26){sh=441;  dz = 1157;  as = 1519;  mg = 1750;  is = 1904;}
-			// else if (tgl==27){sh=441;  dz = 1158;  as = 1519;  mg = 1750;  is = 1904;}
-			// else if (tgl==28){sh=442;  dz = 1158;  as = 1520;  mg = 1750;  is = 1904;}
-			// else if (tgl==29){sh=442;  dz = 1158;  as = 1520;  mg = 1751;  is = 1906;}
-			// else if (tgl==30){sh=442;  dz = 1158;  as = 1520;  mg = 1751;  is = 1906;}
+			if 		(tgl==1){sh=436;  dz = 1152;  as = 1514;  mg = 1746;  is = 1900;}
+			else if (tgl==2){sh=436;  dz = 1153;  as = 1515;  mg = 1746;  is = 1900;}
+			else if (tgl==3){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1900;}
+			else if (tgl==4){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1900;}
+			else if (tgl==5){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1901;}
+			else if (tgl==6){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1901;}
+			else if (tgl==7){sh=437;  dz = 1153;  as = 1515;  mg = 1746;  is = 1901;}
+			else if (tgl==8){sh=437;  dz = 1154;  as = 1515;  mg = 1746;  is = 1901;}
+			else if (tgl==9){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1901;}
+			else if (tgl==10){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1902;}
+			else if (tgl==11){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1902;}
+			else if (tgl==12){sh=438;  dz = 1154;  as = 1516;  mg = 1747;  is = 1902;}
+			else if (tgl==13){sh=438;  dz = 1155;  as = 1516;  mg = 1747;  is = 1902;}
+			else if (tgl==14){sh=439;  dz = 1155;  as = 1517;  mg = 1747;  is = 1902;}
+			else if (tgl==15){sh=439;  dz = 1155;  as = 1517;  mg = 1748;  is = 1903;}
+			else if (tgl==16){sh=439;  dz = 1155;  as = 1517;  mg = 1748;  is = 1903;}
+			else if (tgl==17){sh=439;  dz = 1155;  as = 1517;  mg = 1748;  is = 1903;}
+			else if (tgl==18){sh=439;  dz = 1156;  as = 1517;  mg = 1748;  is = 1903;}
+			else if (tgl==19){sh=440;  dz = 1156;  as = 1518;  mg = 1748;  is = 1903;}
+			else if (tgl==20){sh=440;  dz = 1156;  as = 1518;  mg = 1749;  is = 1904;}
+			else if (tgl==21){sh=440;  dz = 1156;  as = 1518;  mg = 1749;  is = 1904;}
+			else if (tgl==22){sh=440;  dz = 1157;  as = 1518;  mg = 1749;  is = 1904;}
+			else if (tgl==23){sh=440;  dz = 1157;  as = 1519;  mg = 1749;  is = 1904;}
+			else if (tgl==24){sh=441;  dz = 1157;  as = 1519;  mg = 1750;  is = 1904;}
+			else if (tgl==25){sh=441;  dz = 1157;  as = 1519;  mg = 1750;  is = 1904;}
+			else if (tgl==26){sh=441;  dz = 1157;  as = 1519;  mg = 1750;  is = 1904;}
+			else if (tgl==27){sh=441;  dz = 1158;  as = 1519;  mg = 1750;  is = 1904;}
+			else if (tgl==28){sh=442;  dz = 1158;  as = 1520;  mg = 1750;  is = 1904;}
+			else if (tgl==29){sh=442;  dz = 1158;  as = 1520;  mg = 1751;  is = 1906;}
+			else if (tgl==30){sh=442;  dz = 1158;  as = 1520;  mg = 1751;  is = 1906;}
 
 
 			//===== temporary for ponorogo region========//
-			if		(tgl==1)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1839;}
-			else if	(tgl==2)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1839;}
-			else if	(tgl==3)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1839;}
-			else if	(tgl==4)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1840;}
-			else if	(tgl==5)  {sh=1121; dz=1135	; as=1455; mg=1725	; is=1840;}
-			else if	(tgl==6)  {sh=1121; dz=1135	; as=1456; mg=1725	; is=1840;}
-			else if	(tgl==7)  {sh=1121; dz=1135	; as=1456; mg=1725	; is=1840;}
-			else if	(tgl==8)  {sh=1121; dz=1135	; as=1456; mg=1725	; is=1840;}
-			else if	(tgl==9)  {sh=1121; dz=1135	; as=1456; mg=1726	; is=1840;}
+			// if		(tgl==1)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1839;}
+			// else if	(tgl==2)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1839;}
+			// else if	(tgl==3)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1839;}
+			// else if	(tgl==4)  {sh=1120; dz=1134	; as=1455; mg=1725	; is=1840;}
+			// else if	(tgl==5)  {sh=1121; dz=1135	; as=1455; mg=1725	; is=1840;}
+			// else if	(tgl==6)  {sh=1121; dz=1135	; as=1456; mg=1725	; is=1840;}
+			// else if	(tgl==7)  {sh=1121; dz=1135	; as=1456; mg=1725	; is=1840;}
+			// else if	(tgl==8)  {sh=1121; dz=1135	; as=1456; mg=1725	; is=1840;}
+			// else if	(tgl==9)  {sh=1121; dz=1135	; as=1456; mg=1726	; is=1840;}
 		}
 
 		else if (Bulan ==7) {
