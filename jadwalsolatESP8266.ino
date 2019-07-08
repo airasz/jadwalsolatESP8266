@@ -71,6 +71,7 @@ bool logginsession = 0;
 bool open_command = 0;
 int authtry = 0;
 
+int criticalTolerance=10;
 bool beeping = false;
 int beepcount = 0;
 int duration;
@@ -345,6 +346,15 @@ byte decToBcd(byte val){
 // Convert normal decimal numbers to binary coded decimal
   return ( (val/10*16) + (val%10) );
 }
+
+void goSleep(int minute , int secon){
+  int sleepLong;
+  if (minute+secon>0){
+    sleepLong=((minute*60)*1000000) +( secon*1000000);
+    ESP.deepSleep(sleepLong, RF_DISABLED);
+  }
+}
+
 String clockDigit(int i){
   String s;
   if (i<10){
@@ -449,7 +459,7 @@ void display_idle()
       Serial.println("screen off");
       Serial.println("go to deep sleep");
       //ESP.deepSleep(minute*second*1000000, RF_DISABLED);
-      ESP.deepSleep(3*60*1000000, RF_DISABLED);
+      goSleep(3,0);   //goSleep(minutes,seconds);
     }
   }
 
@@ -598,7 +608,7 @@ void close_incoming_event()
       display.setCursor(0, 10);
       display.print("menjelang dzuhur");
       display.display();
-      if (t < 15 && t > 0)
+      if (t < criticalTolerance && t > 0)
       {
         critical = 1;
         if (timeClient.getSeconds() < 10 && t == 2)
@@ -634,7 +644,7 @@ void close_incoming_event()
     display.setCursor(0, 10);
     display.print("menjelang dzuhur");
     display.display();
-    if (t < 15 && t > 0)
+    if (t < criticalTolerance && t > 0)
     {
       critical = 1;
 
@@ -663,7 +673,7 @@ void close_incoming_event()
       display.setCursor(0, 10);
       display.print("menjelang azhar");
       display.display();
-      if (t < 15)
+      if (t < criticalTolerance)
       {
         if (t > 0)
         {
@@ -692,7 +702,7 @@ void close_incoming_event()
     display.setCursor(0, 10);
     display.print("menjelang azhar");
     display.display();
-    if (t < 15)
+    if (t < criticalTolerance)
     {
       if (t > 0)
       {
@@ -717,7 +727,7 @@ void close_incoming_event()
       display.setCursor(0, 10);
       display.print("menjelang maghrib");
       display.display();
-      if (t < 15 && t > 0)
+      if (t < criticalTolerance && t > 0)
       {
         critical = 1;
       }
@@ -743,7 +753,7 @@ void close_incoming_event()
     display.setCursor(0, 10);
     display.print("menjelang maghrib");
     display.display();
-    if (t < 15 && t > 0)
+    if (t < criticalTolerance && t > 0)
     {
       critical = 1;
     }
@@ -766,7 +776,7 @@ void close_incoming_event()
       display.setCursor(0, 10);
       display.print("menjelang isya'");
       display.display();
-      if (t < 15 && t > 0)
+      if (t < criticalTolerance && t > 0)
       {
         critical = 1;
       }
@@ -792,7 +802,7 @@ void close_incoming_event()
     display.setCursor(0, 10);
     display.print("menjelang isya'");
     display.display();
-    if (t < 15)
+    if (t < criticalTolerance)
     {
       critical = 1;
     }
@@ -815,7 +825,7 @@ void close_incoming_event()
       display.setCursor(0, 10);
       display.print("menjelang shubuh");
       display.display();
-      if (t < 15 && t > 0)
+      if (t < criticalTolerance && t > 0)
       {
         critical = 1;
       }
@@ -841,7 +851,7 @@ void close_incoming_event()
     display.setCursor(0, 10);
     display.print("menjelang shubuh'");
     display.display();
-    if (t < 15)
+    if (t < criticalTolerance)
     {
       critical = 1;
     }
@@ -867,7 +877,7 @@ void flashy()
   {
     if (critical)
     {
-      if (t < 15 && t > 5)
+      if (t < criticalTolerance && t > 5)
       {
         interval2 = 500;
         if (fly == 1)
